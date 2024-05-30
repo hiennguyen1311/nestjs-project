@@ -1,13 +1,24 @@
 version: "3"
+# services:
+#   rabbitmq:
+#     image: rabbitmq:3-management
+#     container_name: rabbitmq
+#     hostname: rabbitmq
+#     volumes:
+#       - /var/lib/rabbitmq
+#     ports:
+#       - "5672:5672"
+#       - "15672:15672"
+#     env_file:
+#       - ./rabbitmq.env
+
 services:
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: rabbitmq
-    hostname: rabbitmq
-    volumes:
-      - /var/lib/rabbitmq
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
     ports:
-      - "5672:5672"
-      - "15672:15672"
-    env_file:
-      - ./rabbitmq.env
+      - 9092:9092
+    environment:
+      DYNAMIC_CONFIG_ENABLED: 'true'
+    volumes:
+      - ~/kui/config.yml:/etc/kafkaui/dynamic_config.yaml  

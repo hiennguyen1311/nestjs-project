@@ -25,6 +25,8 @@
         "@/*": ["./src/*"],
         "@services/*": ["./src/services/*"],
         "@services": ["./src/services/services.index.ts"],
+        "@microservices/*": ["./src/microservices/*"],
+        "@microservices": ["./src/microservices/microservices.index.ts"],
     },
   }
 }

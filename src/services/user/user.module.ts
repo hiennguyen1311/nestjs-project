@@ -3,7 +3,7 @@ import { UsersService } from './user.service';
 import { UsersController } from './user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user.entity';
-import { QueueModule } from '@/microservices/queue/queue.module';
+import { QueueModule } from '../../microservices/queue/queue.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), QueueModule],
