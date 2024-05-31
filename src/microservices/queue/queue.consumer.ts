@@ -44,40 +44,40 @@ export class ConsumerService implements OnModuleInit {
   }
 
   public async onModuleInit() {
-    // try {
-    //   await this.consumer.connect();
-    //   // Subscribing to out Kafka topic
-    //   await this.consumer.subscribe({
-    //     topic: process.env.KAFKA_TOPIC,
-    //     fromBeginning: true,
-    //   });
-    //   await this.consumer.subscribe({ topic: 'emailQueue' });
-    //   await this.consumer.run({
-    //     autoCommit: false, // It won't commit message acknowledge to kafka until we don't do manually
-    //     eachMessage: async ({ partition, message }) => {
-    //       const messageData = message.value.toString();
-    //       try {
-    //         // Do the business Logic
-    //         Logger.log('Received Message', messageData);
-    //       } catch (error) {
-    //         Logger.error('Consumer Error', error);
-    //         // Resending message to kafka queue for redelivery
-    //         await sendMessageToQueue(messageData);
-    //       } finally {
-    //         const offset = +message.offset + 1;
-    //         // Committing the message offset to Kafka
-    //         await this.consumer.commitOffsets([
-    //           {
-    //             topic: process.env.KAFKA_TOPIC,
-    //             partition,
-    //             offset: offset.toString(),
-    //           },
-    //         ]);
-    //       }
-    //     },
-    //   });
-    // } catch (error) {
-    //   Logger.error('Consumer Error', error);
-    // }
+    try {
+      await this.consumer.connect();
+      // Subscribing to out Kafka topic
+      await this.consumer.subscribe({
+        topic: process.env.KAFKA_TOPIC,
+        fromBeginning: true,
+      });
+      await this.consumer.subscribe({ topic: 'emailQueue' });
+      await this.consumer.run({
+        autoCommit: false, // It won't commit message acknowledge to kafka until we don't do manually
+        eachMessage: async ({ partition, message }) => {
+          const messageData = message.value.toString();
+          try {
+            // Do the business Logic
+            Logger.log('Received Message', messageData);
+          } catch (error) {
+            Logger.error('Consumer Error', error);
+            // Resending message to kafka queue for redelivery
+            await sendMessageToQueue(messageData);
+          } finally {
+            const offset = +message.offset + 1;
+            // Committing the message offset to Kafka
+            await this.consumer.commitOffsets([
+              {
+                topic: process.env.KAFKA_TOPIC,
+                partition,
+                offset: offset.toString(),
+              },
+            ]);
+          }
+        },
+      });
+    } catch (error) {
+      Logger.error('Consumer Error', error);
+    }
   }
 }
