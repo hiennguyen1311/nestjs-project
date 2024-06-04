@@ -1,9 +1,13 @@
 FROM node:lts
 
-WORKDIR /home/node/app
-RUN chmod 777 -R /home/node/app
-COPY . ./
-RUN yarn install
-RUN yarn build:prod
+WORKDIR /app
 
-CMD ["yarn", "start:prod", "dist/main.js"]
+COPY package*.json ./
+
+RUN yarn install
+
+COPY . .
+
+RUN yarn run build
+
+CMD [ "yarn", "run", "start:dev" ]

@@ -13,6 +13,18 @@ version: "3"
 #       - ./rabbitmq.env
 
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: transfer-message-tool
+    environment:
+      - PORT=${PORT}
+    ports:
+      - '3300:3300'
+    volumes:
+      - ./src:/app/src
+
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.2
     hostname: zoo
@@ -61,3 +73,4 @@ services:
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
     volumes:
       - ~/kui/config.yml:/etc/kafkaui/dynamic_config.yaml
+      
