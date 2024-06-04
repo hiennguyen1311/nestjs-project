@@ -28,5 +28,12 @@
         "@microservices/*": ["./src/microservices/*"],
         "@microservices": ["./src/microservices/microservices.index.ts"],
     },
-  }
+  },
+  "include": [
+    "./**/*"
+  ],
+  "exclude": [
+      "./plugins/**/*",
+      "./typings/**/*"
+  ]
 }

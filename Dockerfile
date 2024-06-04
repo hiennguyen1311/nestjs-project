@@ -6,4 +6,4 @@ COPY . ./
 RUN yarn install
 RUN yarn build:prod
 
-CMD ["yarn", "start:dev", "dist/main.js"]
+CMD ["yarn", "start:prod", "dist/main.js"]

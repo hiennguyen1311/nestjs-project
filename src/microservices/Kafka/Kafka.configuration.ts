@@ -1,14 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from '../../app.module';
-import { Kafka } from 'kafkajs';
+import { Kafka, } from 'kafkajs';
 
 export const KafkaAppWrapper = async () =>
   await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
     transport: Transport.KAFKA,
     options: {
       client: {
-        brokers: ['localhost:9092'],
+        brokers: [process.env.KAFKA_HOST],
       },
     },
   });
