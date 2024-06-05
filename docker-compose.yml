@@ -41,7 +41,7 @@ services:
     hostname: kafka
     container_name: kafka
     ports:
-      - "9092:9093"
+      - "9094:9092"
       - "29092:29092"
       - "9999:9999"
     environment:
