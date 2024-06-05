@@ -51,7 +51,6 @@ export class ConsumerService implements OnModuleInit {
         topic: process.env.KAFKA_TOPIC,
         fromBeginning: true,
       });
-      await this.consumer.subscribe({ topic: process.env.KAFKA_TOPIC });
       await this.consumer.run({
         autoCommit: false, // It won't commit message acknowledge to kafka until we don't do manually
         eachMessage: async ({ partition, message }) => {
