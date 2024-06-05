@@ -41,7 +41,7 @@ services:
     hostname: kafka
     container_name: kafka
     ports:
-      - "9092:9092"
+      - "9092:9093"
       - "29092:29092"
       - "9999:9999"
     environment:
@@ -61,16 +61,3 @@ services:
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
     depends_on:
       - zookeeper
-    
-  kafka-ui:
-    container_name: kafka-ui
-    image: provectuslabs/kafka-ui:latest
-    ports:
-      - 8080:8080
-    environment:
-      DYNAMIC_CONFIG_ENABLED: 'true'
-      KAFKA_CLUSTERS_0_NAME: wizard_test
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
-    volumes:
-      - ~/kui/config.yml:/etc/kafkaui/dynamic_config.yaml
-      
