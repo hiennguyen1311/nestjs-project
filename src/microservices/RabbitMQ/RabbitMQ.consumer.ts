@@ -4,9 +4,9 @@ import { EmailService } from '../../services/email/email.service';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 
 @Injectable()
-export class ConsumerService implements OnModuleInit {
+export class RabbitMQConsumerService implements OnModuleInit {
   private channelWrapper: ChannelWrapper;
-  private readonly logger = new Logger(ConsumerService.name);
+  private readonly logger = new Logger(RabbitMQConsumerService.name);
   constructor(private emailService: EmailService) {
     const connection = amqp.connect(['amqp://localhost']);
     this.channelWrapper = connection.createChannel();
