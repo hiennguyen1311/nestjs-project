@@ -20,7 +20,7 @@ async function bootstrap() {
   await app.startAllMicroservices();
   await app.listen(process.env.PORT);
 
-  Logger.log(`Server running on ${await app.getUrl()}}`);
+  Logger.log(`Server is running on ${await app.getUrl()}}`);
 
   return app;
 }

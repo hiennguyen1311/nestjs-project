@@ -31,6 +31,7 @@ export async function connectMicroservice<T = any>(
           },
           consumer: {
             groupId: process.env.KAFKA_GROUP_ID,
+            allowAutoTopicCreation: true
           },
         },
       });
