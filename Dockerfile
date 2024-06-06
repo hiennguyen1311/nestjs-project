@@ -18,4 +18,4 @@ EXPOSE 3300
 
 RUN yarn build:prod
 
-CMD ["yarn", "start:prod", "dist/main.js"]
+CMD ["yarn", "run", "start:dev",]
