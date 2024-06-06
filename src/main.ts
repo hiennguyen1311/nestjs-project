@@ -15,7 +15,7 @@ async function bootstrap() {
     AppModule,
     new ExpressAdapter(),
   );
-  await connectMicroservice(app, Transport.KAFKA);
+  // await connectMicroservice(app, Transport.KAFKA);
 
   await app.startAllMicroservices();
   await app.listen(process.env.PORT);

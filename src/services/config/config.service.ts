@@ -20,7 +20,7 @@ export class AppConfigService {
     return {
       clientId: this.get('MICRO_SERVICE_CLIENT_ID'),
       borkers: [this.get('KAFKA_HOST')],
-      groupdId: this.get('KAFKA_GROUP_ID'),
+      groupId: this.get('KAFKA_GROUP_ID'),
     };
   }
 }

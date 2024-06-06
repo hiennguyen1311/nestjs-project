@@ -26,7 +26,7 @@ export async function connectMicroservice<T = any>(
         transport: Transport.KAFKA,
         options: {
           client: {
-            clientId: process.env.KAFKA_GROUP_ID,
+            clientId: process.env.MICRO_SERVICE_CLIENT_ID,
             brokers: [process.env.KAFKA_HOST],
           },
           consumer: {
