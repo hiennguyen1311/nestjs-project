@@ -1,26 +1,41 @@
-version: "3"
-# services:
-#   rabbitmq:
-#     image: rabbitmq:3-management
-#     container_name: rabbitmq
-#     hostname: rabbitmq
-#     volumes:
-#       - /var/lib/rabbitmq
-#     ports:
-#       - "5672:5672"
-#       - "15672:15672"
-#     env_file:
-#       - ./rabbitmq.env
+version: '1'
 
 services:
-  app:
+  dev:
+    container_name: transfer-message-tool_dev
+    image: transfer-message-tool_dev:1.0.0
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: transfer-message-tool
-    environment:
-      - PORT=${PORT}
+      target: development
+      dockerfile: ./Dockerfile
+    command: npm run start:dev
     ports:
-      - '3300:3300'
+      - 3300:3300
+      - 9229:9229
+    networks:
+        - nesjs-network
     volumes:
-      - ./src:/app/src
+      - .:/home/node/app
+      - /home/node/app/node_modules
+    restart: unless-stopped
+
+  prod:
+    container_name: transfer-message-tool_prod
+    image: transfer-message-tool_prod:1.0.0
+    build:
+      context: .
+      target: production
+      dockerfile: ./Dockerfile
+    command: npm run start:prod
+    ports:
+      - 3300:3300
+      - 9229:9229
+    networks:
+      - nesjs-network
+    volumes:
+      - .:/home/node/app
+      - /home/node/app/node_modules
+    restart: unless-stopped
+
+networks:
+  nesjs-network:

@@ -1,21 +1,30 @@
-FROM node:lts
-
-RUN mkdir -p /home/node/app
+FROM node:lts AS development
 
 WORKDIR /home/node/app
 
-COPY package.json /home/node/app/
+COPY package*.json ./
 
-RUN chmod 777 -R /home/node/app
+RUN npm install glob rimraf
+
+RUN npm install --only=development
+
+COPY . .
+
+RUN npm run build
+
+FROM node:lts as production
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
+WORKDIR /home/node/app
 
 COPY package*.json ./
 
-RUN yarn install
+RUN npm install --only=production
 
-COPY . ./
+COPY . .
 
-EXPOSE 3300
+COPY --from=development /home/node/app/dist ./dist
 
-RUN yarn build:prod
-
-CMD ["yarn", "start:dev"]
+CMD ["yarn", "start:prod" ,"dist/main"]

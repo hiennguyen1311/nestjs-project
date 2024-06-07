@@ -9,9 +9,9 @@ import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
-    UsersModule,
-    EmailModule,
-    QueueModule,
+    // UsersModule,
+    // EmailModule,
+    // QueueModule,
     SharedModule,
     TypeOrmModule.forRoot({
       type: 'sqlite',
